@@ -14,8 +14,8 @@ import matplotlib.transforms as trans
 
 import numpy as np
 
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
+#plt.rc('text', usetex=True)
+#plt.rc('font', family='serif')
 
 # Style axis
 def ient_axis(ax):
