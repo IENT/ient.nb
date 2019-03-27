@@ -290,7 +290,7 @@ class TikzMagics(Magics):
         
         tex = []
         tex.append('''
-\\documentclass[convert={%(add_params)ssize=%(width)sx%(height)s,outext=.png,convertexe={magick}},border=0pt]{standalone}
+\\documentclass[convert={%(add_params)ssize=%(width)sx%(height)s,outext=.png,convertexe={convert}},border=0pt]{standalone}
 \\usepackage{xcolor}
 \\usepackage{helvet}
 \\usepackage{tikz,tkz-euclide}
