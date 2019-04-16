@@ -37,7 +37,7 @@ def ient_axis(ax):
         l = ax.xaxis.label
         xpos, ypos = l.get_position()    
         offset = trans.ScaledTranslation(0, dd, fig.dpi_scale_trans)
-        shadow_transform = l.get_transform() - offset
+        shadow_transform = l.get_transform() + offset
         ax.xaxis.set_label_coords(xpos,ypos, transform=shadow_transform)
         
     def on_ylims_change(axes=[]):
@@ -56,7 +56,7 @@ def ient_axis(ax):
     ax.callbacks.connect('ylim_changed', on_ylims_change)
     
     on_xlims_change()
-    ax.xaxis.label.set_verticalalignment('top')
+    ax.xaxis.label.set_verticalalignment('bottom')
     ax.xaxis.label.set_horizontalalignment('right')
     
     ax.yaxis.label.set_rotation(0)
