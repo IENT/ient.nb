@@ -31,6 +31,7 @@ import sys
 import tempfile
 from glob import glob
 from os import chdir, getcwd
+import os # ient hack: detect windows
 from subprocess import call
 from shutil import rmtree, copy
 from xml.dom import minidom
@@ -287,15 +288,23 @@ class TikzMagics(Magics):
             add_params += "density=300,"
         
 #\\documentclass[convert={%(add_params)ssize=%(width)sx%(height)s,outext=.%(plot_format)s},border=0pt]{standalone}
-        
         tex = []
-        tex.append('''
+        if os.name == 'nt': # windows 
+          tex.append('''
+\\documentclass[convert={%(add_params)ssize=%(width)sx%(height)s,outext=.png,convertexe={magick}},border=0pt]{standalone}
+\\usepackage{xcolor}
+\\usepackage{helvet}
+\\usepackage{tikz,tkz-euclide}
+\\usetkzobj{all}
+          ''' % locals())
+        else:
+          tex.append('''
 \\documentclass[convert={%(add_params)ssize=%(width)sx%(height)s,outext=.png,convertexe={convert}},border=0pt]{standalone}
 \\usepackage{xcolor}
 \\usepackage{helvet}
 \\usepackage{tikz,tkz-euclide}
 \\usetkzobj{all}
-        ''' % locals())
+          ''' % locals())
         
         if tikz_library is not None:
             for lib in tikz_library:
