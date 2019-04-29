@@ -10,4 +10,4 @@ Functionality to enhance Jupyter Notebooks IENT style
 
 ## Binder
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgit.rwth-aachen.de%2FIENT%2Fient.nb/6e01cfd187b978862ba64c6492ef26ce49e19aa8?filepath=Interactive%20Demo.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgit.rwth-aachen.de%2FIENT%2Fient.nb/fc2b312e661556487fbd92ba249d199b801d7753?filepath=Interactive%20Demo.ipynb)
