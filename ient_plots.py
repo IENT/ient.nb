@@ -15,8 +15,6 @@ import matplotlib.colors as mcolors
 
 import numpy as np
 
-
-
 #plt.rc('text', usetex=True)
 #plt.rc('font', family='serif')
 
@@ -71,6 +69,22 @@ def ient_axis(ax):
     ax.yaxis.label.set_fontsize(12)
 
 
+# annotate certain xtick
+def ient_annotate_xtick(ax,txt, x,y,col,fs=12):
+    txt_ret = ax.text(x,y,txt, color=col, fontsize=fs, verticalalignment='top', horizontalalignment='center',
+                     bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
+    line_ret, = ax.plot([x,x],[0,y],'--', color=col, lw=0.5)
+
+# grid
+def ient_grid(ax):
+    ax.grid(); ax.set_axisbelow(True);
+
+def ient_update_xlim(ax,x,dx,xmax=5):
+    ax.set_xlim([np.max([np.min(x),-xmax])-dx, np.min([np.max(x),xmax])+dx])
+        
+def ient_update_ylim(ax,y,dy,ymax=5):
+    ax.set_ylim([np.max([np.min(y),-ymax])-dy, np.min([np.max(y),ymax])+dy])
+        
 # RWTH Colors
 rwth_colors = {
     'rwth'    : '#00549F',
