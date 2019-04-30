@@ -5,9 +5,11 @@ Functionality to enhance Jupyter Notebooks IENT style
 
 ## Contents
 
-* `ient_plots.py` offers to style Matplotlib axes the IENT way (e.g. with arrows below the axes)
+* `ient_plots.py` offers to style Matplotlib axes the IENT way (e.g. with arrows below the axes) as well as the RWTH colors
 * `ient_tikzmagic.py` defines a magic command to compile TikZ within a notebook (forked from https://github.com/mkrphys/ipython-tikzmagic)
 
 ## Binder
+
+You can directly run the included demo notebook with Binder:
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgit.rwth-aachen.de%2FIENT%2Fient.nb/fc2b312e661556487fbd92ba249d199b801d7753?filepath=Interactive%20Demo.ipynb)
