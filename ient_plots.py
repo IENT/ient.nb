@@ -158,3 +158,6 @@ rwth_colors = {
 
 # Propagate rwth_colors to default matplotlib colors
 mcolors.get_named_colors_mapping().update(rwth_colors)
+
+# Widget label style (full width)
+ient_label_style = {'description_width': 'initial'}
