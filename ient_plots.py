@@ -160,4 +160,7 @@ rwth_colors = {
 mcolors.get_named_colors_mapping().update(rwth_colors)
 
 # Widget label style (full width)
-ient_label_style = {'description_width': 'initial'}
+ient_wdgtl_style = {'description_width': 'initial'}
+
+# Axis white background
+ient_wbbox = {"facecolor": "white", "edgecolor": "None", "pad": 0}
