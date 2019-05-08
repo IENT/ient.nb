@@ -74,6 +74,12 @@ def ient_annotate_xtick(ax,txt, x,y,col,fs=12):
     txt_ret = ax.text(x,y,txt, color=col, fontsize=fs, verticalalignment='top', horizontalalignment='center',
                      bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
     line_ret, = ax.plot([x,x],[0,y],'--', color=col, lw=0.5)
+    
+# annotate certain ytick
+def ient_annotate_ytick(ax,txt, x,y,col,fs=12):
+    txt_ret = ax.text(x,y,txt, color=col, fontsize=fs, verticalalignment='top', horizontalalignment='center',
+                     bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
+    line_ret, = ax.plot([0,x],[y,y],'--', color=col, lw=0.5)
 
 # grid
 def ient_grid(ax):
