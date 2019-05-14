@@ -90,7 +90,18 @@ def ient_update_xlim(ax,x,dx,xmax=5):
         
 def ient_update_ylim(ax,y,dy,ymax=5):
     ax.set_ylim([np.max([np.min(y),-ymax])-dy, np.min([np.max(y),ymax])+dy])
-        
+    
+# Styles
+ient_style_poles = {'color': 'rwth', 'marker': 'x', 'ls': 'None'}
+ient_style_zeros = {'color': 'rwth', 'marker': 'o', 'ls': 'None'}
+ient_style_graph = {'color': 'rwth'}
+
+# Widget label style (full width)
+ient_wdgtl_style = {'description_width': 'initial'}
+
+# Axis white background
+ient_wbbox = {"facecolor": "white", "edgecolor": "None", "pad": 0}
+    
 # RWTH Colors
 rwth_colors = {
     'rwth'    : '#00549F',
@@ -165,12 +176,12 @@ rwth_colors = {
 # Propagate rwth_colors to default matplotlib colors
 mcolors.get_named_colors_mapping().update(rwth_colors)
 
-# Widget label style (full width)
-ient_wdgtl_style = {'description_width': 'initial'}
 
 # Axis white background
 ient_wbbox = {"facecolor": "white", "edgecolor": "None", "pad": 0}
 
+
+# Custom stem function
 def ient_stem(ax, x, y, color='rwth', **kwargs):
     ml, sl, bl = ax.stem(x, y, basefmt=" ", **kwargs); 
     plt.setp(ml, 'Color', color); plt.setp(sl, 'Color', color); plt.setp(bl, 'Color', color); 
@@ -190,3 +201,21 @@ def ient_stem_set_ydata(container, y):
     for it,l in enumerate(container[1]):
         l.set_ydata([0, y[it]])
     container[0].set_ydata(y);
+    
+    
+# Laplace Region of Convergence
+def ient_plot_lroc(ax, roc, xmax=12, ymax=12):
+    y1 = [-ymax, -ymax]
+    y2 = [ymax, ymax]
+    
+    mask = np.isinf(roc)
+    roc[mask] = np.sign(roc[mask])*xmax
+    lleft, = ax.plot([roc[0], roc[0]], [y1[0], y2[0]], ls="--", c="rwth")
+    lright, = ax.plot([roc[1], roc[1]], [y1[0], y2[0]], ls="--", c="rwth")
+    hatch = ax.fill_between(roc, y1, y2, facecolor="none", hatch="/", edgecolor="rwth", linewidth=0.0)
+                                                 
+def ient_annotate_order(ax, p, ord):
+  for index, order in enumerate(ord):
+    if order > 1:
+        ax.text(np.real((p)[index]), np.imag((p)[index]), '(' + str(order) + ')', color='black')
+        ax.text(np.real((p)[index]), -np.imag((p)[index]), '(' + str(order) + ')', color='black')
