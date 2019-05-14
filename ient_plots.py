@@ -170,3 +170,23 @@ ient_wdgtl_style = {'description_width': 'initial'}
 
 # Axis white background
 ient_wbbox = {"facecolor": "white", "edgecolor": "None", "pad": 0}
+
+def ient_stem(ax, x, y, color='rwth', **kwargs):
+    ml, sl, bl = ax.stem(x, y, basefmt=" ", **kwargs); 
+    plt.setp(ml, 'Color', color); plt.setp(sl, 'Color', color); plt.setp(bl, 'Color', color); 
+    return (ml,sl,bl);
+
+def ient_stem_set_data(container, x, y):
+    for it,l in enumerate(container[1]):
+        l.set_data([x[it],x[it]],[0, y[it]])
+    container[0].set_data(x, y);
+
+def ient_stem_set_xdata(container, x):
+    for it,l in enumerate(container[1]):
+        l.set_xdata([x[it], x[it]])
+    container[0].set_xdata(x);
+
+def ient_stem_set_ydata(container, y):
+    for it,l in enumerate(container[1]):
+        l.set_ydata([0, y[it]])
+    container[0].set_ydata(y);
