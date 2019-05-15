@@ -81,6 +81,11 @@ def ient_annotate_ytick(ax,txt, x,y,col,fs=12):
                      bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
     line_ret, = ax.plot([0,x],[y,y],'--', color=col, lw=0.5)
 
+def ient_annotate_distance(ax, txt, start, stop):
+  ax.annotate('', xy=start, xycoords='data', xytext=stop, textcoords='data', arrowprops={'arrowstyle': '|-|,widthA=0.25,widthB=0.25'});
+  ax.annotate(txt, xy=((start[0]+stop[0])/2, (start[1]+stop[1])/2), xycoords='data', 
+             xytext=(0, -2), textcoords='offset points', horizontalalignment='center', verticalalignment='top');
+
 # grid
 def ient_grid(ax):
     ax.grid(); ax.set_axisbelow(True);
