@@ -84,7 +84,7 @@ def ient_annotate_ytick(ax,txt, x,y,col,fs=12):
 def ient_annotate_distance(ax, txt, start, stop):
   ax.annotate('', xy=start, xycoords='data', xytext=stop, textcoords='data', arrowprops={'arrowstyle': '|-|,widthA=0.25,widthB=0.25'});
   ax.annotate(txt, xy=((start[0]+stop[0])/2, (start[1]+stop[1])/2), xycoords='data', 
-             xytext=(0, -2), textcoords='offset points', horizontalalignment='center', verticalalignment='top');
+             xytext=(0, -2), textcoords='offset points', horizontalalignment='center', verticalalignment='top', bbox=ient_wbbox);
 
 # grid
 def ient_grid(ax):
@@ -207,6 +207,17 @@ def ient_stem_set_ydata(container, y):
         l.set_ydata([0, y[it]])
     container[0].set_ydata(y);
     
+def ient_plot_dirac(ax, x, y, color='rwth', **kwargs):
+    mask = y>=0; xp = x[mask]; yp = y[mask];
+    lp = ax.vlines(xp, np.zeros_like(xp), yp, color)
+    mp = ax.plot(xp, yp, color=color, marker="^", lw=0, **kwargs)
+        
+    mask = y<0; xn = x[mask]; yn = y[mask]
+    kwargs.pop('label', None) # one legend label is enough
+    ln = ax.vlines(xn, np.zeros_like(xn), yn, color)
+    mn = ax.plot(xn, yn, color=color, marker="v", lw=0, **kwargs)
+    
+    return(lp, mp, ln, mn)
     
 # Laplace Region of Convergence
 def ient_plot_lroc(ax, roc, xmax=12, ymax=12):
