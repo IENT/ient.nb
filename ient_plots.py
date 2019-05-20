@@ -208,12 +208,13 @@ def ient_stem_set_ydata(container, y):
     container[0].set_ydata(y);
     
 def ient_plot_dirac(ax, x, y, color='rwth', **kwargs):
+    x = np.asarray(x); y = np.asarray(y);
     mask = y>=0; xp = x[mask]; yp = y[mask];
     lp = ax.vlines(xp, np.zeros_like(xp), yp, color)
     mp = ax.plot(xp, yp, color=color, marker="^", lw=0, **kwargs)
         
     mask = y<0; xn = x[mask]; yn = y[mask]
-    kwargs.pop('label', None) # one legend label is enough
+    kwargs.pop('label', None); kwargs.pop('lw', None); # one legend label is enough
     ln = ax.vlines(xn, np.zeros_like(xn), yn, color)
     mn = ax.plot(xn, yn, color=color, marker="v", lw=0, **kwargs)
     
