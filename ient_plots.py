@@ -188,38 +188,60 @@ ient_wbbox = {"facecolor": "white", "edgecolor": "None", "pad": 0}
 
 # Custom stem function
 def ient_stem(ax, x, y, color='rwth', **kwargs):
-    ml, sl, bl = ax.stem(x, y, basefmt=" ", **kwargs); 
-    plt.setp(ml, 'Color', color); plt.setp(sl, 'Color', color); plt.setp(bl, 'Color', color); 
-    return (ml,sl,bl);
+    container = ax.stem(x, y, use_line_collection=True, basefmt=" ", **kwargs); 
+    plt.setp(container, 'Color', color); 
+    return container;
 
 def ient_stem_set_data(container, x, y):
-    for it,l in enumerate(container[1]):
-        l.set_data([x[it],x[it]],[0, y[it]])
-    container[0].set_data(x, y);
+    tmp = [np.array([ [xt, 0], [xt, yt] ]) for xt,yt in zip(x,y)]
+    container[1].set_segments(tmp); 
+    container[0].set_data(x,y)
 
 def ient_stem_set_xdata(container, x):
-    for it,l in enumerate(container[1]):
-        l.set_xdata([x[it], x[it]])
-    container[0].set_xdata(x);
-
-def ient_stem_set_ydata(container, y):
-    for it,l in enumerate(container[1]):
-        l.set_ydata([0, y[it]])
-    container[0].set_ydata(y);
+    y = container[0].get_ydata();
+    ient_stem_set_data(container, x, y)
     
+def ient_stem_set_ydata(container, y):
+    x = container[0].get_xdata();
+    ient_stem_set_data(container, x, y)
+
+# Custom dirac plot
 def ient_plot_dirac(ax, x, y, color='rwth', **kwargs):
     x = np.asarray(x); y = np.asarray(y);
+    
     mask = y>=0; xp = x[mask]; yp = y[mask];
-    lp = ax.vlines(xp, np.zeros_like(xp), yp, color)
-    mp = ax.plot(xp, yp, color=color, marker="^", lw=0, **kwargs)
-        
+    if len(xp):
+        cp = ient_stem(ax, xp, yp, color, markerfmt="^", **kwargs)
+    else:
+        cp = ()
+    
     mask = y<0; xn = x[mask]; yn = y[mask]
-    kwargs.pop('label', None); kwargs.pop('lw', None); # one legend label is enough
-    ln = ax.vlines(xn, np.zeros_like(xn), yn, color)
-    mn = ax.plot(xn, yn, color=color, marker="v", lw=0, **kwargs)
+    kwargs.pop('label', None); # one legend label is enough
     
-    return(lp, mp, ln, mn)
+    if len(xn):
+        cn = ient_stem(ax, xn, yn, color, markerfmt="v", **kwargs)
+    else:
+        cn = ()
+      
+    return (cp, cn)
     
+def ient_dirac_set_data(containers, x, y):
+    x = np.asarray(x); y = np.asarray(y);
+    
+    mask = y>=0; xp = x[mask]; yp = y[mask];
+    if len(xp):
+        ient_stem_set_data(containers[0], xp, yp)
+    
+    mask = y<0; xn = x[mask]; yn = y[mask]
+    if len(xn):
+        ient_stem_set_data(containers[1], xn, yn)
+
+def ient_dirac_weights(ax, x, y, weights, **kwargs):
+    x = np.asarray(x)[np.newaxis]; y = np.asarray(y)[np.newaxis]; weights = np.asarray(weights)[np.newaxis];
+    for xt, yt, weight in zip(x,y,weights):
+        if weight != 1:
+            ax.text(xt, yt, '(' + str(weight) + ')', **kwargs)
+
 # Laplace Region of Convergence
 def ient_plot_lroc(ax, roc, xmax=12, ymax=12):
     y1 = [-ymax, -ymax]
