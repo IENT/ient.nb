@@ -92,13 +92,13 @@ def ient_grid(ax):
 
 def ient_update_xlim(ax,x,dx,xmax=5):
     ax.set_xlim([np.max([np.min(x),-xmax])-dx, np.min([np.max(x),xmax])+dx])
-        
+
 def ient_update_ylim(ax,y,dy,ymax=5):
     ax.set_ylim([np.max([np.min(y),-ymax])-dy, np.min([np.max(y),ymax])+dy])
-    
+
 # Styles
 ient_style_poles = {'color': 'rwth', 'marker': 'x', 'ls': 'None'}
-ient_style_zeros = {'color': 'rwth', 'marker': 'o', 'ls': 'None'}
+ient_style_zeros = {'color': 'rwth', 'marker': 'o', 'ls': 'None', 'mfc': 'None'}
 ient_style_graph = {'color': 'rwth'}
 
 # Widget label style (full width)
