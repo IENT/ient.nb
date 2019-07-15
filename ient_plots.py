@@ -252,12 +252,16 @@ def ient_dirac_set_data(containers, x, y):
     yp = y[mask];
     if len(xp):
         ient_stem_set_data(containers[0], xp, yp)
+    else:
+        ient_stem_set_data(containers[0], [], [])
 
     mask = y < 0;
     xn = x[mask];
-    yn = y[mask]
+    yn = y[mask];
     if len(xn):
         ient_stem_set_data(containers[1], xn, yn)
+    else:
+        ient_stem_set_data(containers[1], [], [])
 
 
 def ient_dirac_weights(ax, x, y, weights, **kwargs):

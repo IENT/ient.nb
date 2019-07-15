@@ -1,8 +1,8 @@
 import numpy as np
 if __package__ is None or __package__ == '':
-    from ient_signals import eps
+    from ient_signals import eps, findIndOfLeastDiff
 else:
-    from ient_nb.ient_signals import eps
+    from ient_nb.ient_signals import eps, findIndOfLeastDiff
 
 
 def ient_dft(s, fs, NFFT=0):
@@ -175,3 +175,26 @@ def ient_ilaplace_Hf(f=np.linspace(-6, 6, num=1024), H0=1, pp=np.array([]), pz=n
         return 20 * np.log10(np.maximum(eps, np.abs(numerator / denominator)))
     else:
         return np.abs(numerator / denominator)
+
+
+def ient_ideal_sample(x, y, T):
+    def x_mirrored_around_zero(maxval, inc=1):
+        x = np.arange(inc, maxval + inc, inc)
+        return np.r_[-x[::-1], 0, x]
+    xf = x_mirrored_around_zero(np.amax(x), T)
+    yf = y[findIndOfLeastDiff(x, xf)]
+    return xf, yf
+
+
+def ient_real_sample(x, y, T, T0):
+    yf = np.zeros(x.shape)
+    indices = np.where(np.mod(x + T0 / 2, T) <= T0)
+    yf[indices[0]] = y[indices[0]]
+    return x, yf
+
+
+def ient_sample(x, y, T, T0=0):
+    if T0:
+        return ient_real_sample(x, y, T, T0)
+    else:
+        return ient_ideal_sample(x, y, T)
