@@ -106,8 +106,8 @@ def ient_update_ylim(ax, y, dy, ymax=5):
 
 
 # Styles
-ient_style_poles = {'color': 'rwth', 'marker': 'x', 'ls': 'None'}
-ient_style_zeros = {'color': 'rwth', 'marker': 'o', 'ls': 'None', 'mfc': 'None'}
+ient_style_poles = {'color': 'rwth', 'marker': 'x', 'mew': 2, 'ms': 5.5, 'ls': 'None'}
+ient_style_zeros = {'color': 'rwth', 'marker': 'o', 'mew': 2, 'ms': 5.5, 'mfc': 'None', 'ls': 'None'}
 ient_style_graph = {'color': 'rwth'}
 
 # Widget label style (full width)
@@ -280,9 +280,10 @@ def ient_plot_lroc(ax, roc, xmax=12, ymax=12):
 
     mask = np.isinf(roc)
     roc[mask] = np.sign(roc[mask]) * xmax
-    lleft, = ax.plot([roc[0], roc[0]], [y1[0], y2[0]], ls="--", c="rwth")
-    lright, = ax.plot([roc[1], roc[1]], [y1[0], y2[0]], ls="--", c="rwth")
-    hatch = ax.fill_between(roc, y1, y2, facecolor="none", hatch="/", edgecolor="rwth", linewidth=0.0)
+    lleft, = ax.plot([roc[0], roc[0]], [y1[0], y2[0]], ls="--", c="rwth-50")
+    lright, = ax.plot([roc[1], roc[1]], [y1[0], y2[0]], ls="--", c="rwth-50")
+    hatch = ax.fill_between(roc, y1, y2, facecolor="none", hatch="\\", edgecolor="rwth-50", linewidth=0.0)
+
 
 
 # z Region of Convergence
@@ -292,7 +293,7 @@ def ient_plot_zroc(ax, roc, rmax=12):
     roc[mask] = np.sign(roc[mask]) * rmax
 
     # plot circles
-    unitcircle = Circle((0, 0), radius=1, edgecolor="k", fill=False, linestyle='--')
+    unitcircle = Circle((0, 0), radius=1, edgecolor="k", fill=False, linestyle='-')
     ax.add_artist(unitcircle)
 
     theta = np.linspace(0, 2 * np.pi, 1001)
@@ -301,7 +302,7 @@ def ient_plot_zroc(ax, roc, rmax=12):
     xs[1, :] = xs[1, ::-1]
     ys[1, :] = ys[1, ::-1]
 
-    ax.fill(np.ravel(xs), np.ravel(ys), facecolor="none", hatch="/", edgecolor="rwth")
+    ax.fill(np.ravel(xs), np.ravel(ys), facecolor="none", hatch="\\", edgecolor="rwth-50", linestyle='--')
 
 
 def ient_annotate_order(ax, p, ord):
