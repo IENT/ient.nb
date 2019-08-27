@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import signal # butter
 
-def butter(cutoff, fs, order=5, type='Tiefpass', fdelta=0):
+def ient_butter(cutoff, fs, order=5, type='Tiefpass', fdelta=0):
     """
     Design Butterworth filter
     """
@@ -17,17 +17,17 @@ def butter(cutoff, fs, order=5, type='Tiefpass', fdelta=0):
     return b, a
     
 # Shortcuts
-def butter_bandpass(f0, fdelta, fs, order=5):
-    b,a = butter(f0, fs, order, 'Bandpass', fdelta)
+def ient_butter_bandpass(f0, fdelta, fs, order=5):
+    b,a = ient_butter(f0, fs, order, 'Bandpass', fdelta)
     return b, a
-def butter_lowpass(cutoff, fs, order=5):
-    b,a = butter(cutoff, fs, order, 'Tiefpass')
+def ient_butter_lowpass(cutoff, fs, order=5):
+    b,a = ient_butter(cutoff, fs, order, 'Tiefpass')
     return b, a
-def butter_highpass(cutoff, fs, order=5):
-    b,a = butter(cutoff, fs, order, 'Hochpass')
+def ient_butter_highpass(cutoff, fs, order=5):
+    b,a = ient_butter(cutoff, fs, order, 'Hochpass')
     return b, a
 
-def butter_filter(s, b, a):
+def ient_filter(s, b, a):
     """
     Filter s(n) in z-Domain with filter coefficients a and b:
                         -1              -M
