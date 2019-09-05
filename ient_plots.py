@@ -74,6 +74,7 @@ def ient_annotate_xtick(ax, txt, x, y, col, fs=12):
     txt_ret = ax.text(x, y, txt, color=col, fontsize=fs, verticalalignment='top', horizontalalignment='center',
                       bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
     line_ret, = ax.plot([x, x], [0, y], '--', color=col, lw=0.5)
+    return txt_ret, line_ret
 
 
 # annotate certain ytick
@@ -81,7 +82,8 @@ def ient_annotate_ytick(ax, txt, x, y, col, fs=12):
     txt_ret = ax.text(x, y, txt, color=col, fontsize=fs, verticalalignment='top', horizontalalignment='center',
                       bbox=dict(facecolor='white', edgecolor='none', alpha=0.75));
     line_ret, = ax.plot([0, x], [y, y], '--', color=col, lw=0.5)
-
+    
+    return txt_ret, line_ret
 
 def ient_annotate_distance(ax, txt, start, stop):
     ax.annotate('', xy=start, xycoords='data', xytext=stop, textcoords='data',
@@ -225,21 +227,20 @@ def ient_plot_dirac(ax, x, y, color='rwth', **kwargs):
     mask = y >= 0;
     xp = x[mask];
     yp = y[mask];
-    if len(xp):
-        cp = ient_stem(ax, xp, yp, color, markerfmt="^", **kwargs)
-    else:
-        cp = ()
-
+    if not len(xp):
+        xp = np.nan*np.ones(2); yp=xp;
+    cp = ient_stem(ax, xp, yp, color, markerfmt="^", **kwargs)
+    
     mask = y < 0;
     xn = x[mask];
     yn = y[mask]
     kwargs.pop('label', None);  # one legend label is enough
 
-    if len(xn):
-        cn = ient_stem(ax, xn, yn, color, markerfmt="v", **kwargs)
-    else:
-        cn = ()
-
+    if not len(xn):
+        xn = np.nan*np.ones(2); yn=xn;
+    
+    cn = ient_stem(ax, xn, yn, color, markerfmt="v", **kwargs)
+    
     return cp, cn
 
 
