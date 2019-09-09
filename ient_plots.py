@@ -285,6 +285,7 @@ def ient_plot_lroc(ax, roc, xmax=12, ymax=12):
     lright, = ax.plot([roc[1], roc[1]], [y1[0], y2[0]], ls="--", c="rwth-50")
     hatch = ax.fill_between(roc, y1, y2, facecolor="none", hatch="\\", edgecolor="rwth-50", linewidth=0.0)
 
+    return lleft, lright, hatch
 
 
 # z Region of Convergence
